@@ -2,16 +2,6 @@
 
 int main()
 {
-	float data[N_ROWS];
-  
-  //knnExe("", "");
-  
-  getData("a1.txt", data);
-  normalize(data);
-
-  // for (int i = 0; i < N_ROWS; i++) {
-  //   printf("%f\n", data[i]);
-  // }
-
+	knnExe("e2.txt", "alphabet");
 	return (0);
 }
