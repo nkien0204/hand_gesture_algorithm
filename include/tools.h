@@ -9,7 +9,8 @@
 #define N_ROWS 25
 #define N_COLS 8
 #define K 5
-#define N_SAMPLES 5
+#define N_TRAINING_SAMPLES 8
+#define N_TESTING_SAMPLES 2
 
 struct data_info {
   char name;
@@ -19,9 +20,9 @@ struct data_info {
 char top_predicts[K]; 
 void getData(char* file_path, float data[N_ROWS][N_COLS]);
 float calcDistance(float input_vec[N_ROWS][N_COLS], float training_vec[N_ROWS][N_COLS]);
-void knnExe(char *input_file_path, char *training_folder);
+void knnExe(int *count_total, int *count_correct, char *input_file_path, char *training_folder);
 void sortDistance(struct data_info *predicts, struct data_info training_info);
-void predict(struct data_info predicts[]);
+char predict(struct data_info predicts[]);
 void normalize(float data[N_ROWS][N_COLS]);
 void decrease_size(float data[N_ROWS][N_COLS], float my_data[]);
 float getMax(float vector[]);

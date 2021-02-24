@@ -41,6 +41,8 @@ void getData(char* file_path, float my_data[N_ROWS][N_COLS]) {
       my_data[i][j] = data[i][j];
     }
   }
+
+  fclose(fptr);
 }
 
 float calcDistance(float input_vec[N_ROWS][N_COLS], float training_vec[N_ROWS][N_COLS]) {
@@ -55,11 +57,12 @@ float calcDistance(float input_vec[N_ROWS][N_COLS], float training_vec[N_ROWS][N
   return sqrt(sum);
 }
 
-void knnExe(char *testing_file_path, char *training_folder) {
+void knnExe(int *count_total, int *count_correct, char *testing_file_path, char *training_folder) {
   struct data_info predicts[K];
+  char result;
 
-  for (char file_name = 97; file_name < 110; file_name++) {
-    for (int i = 0; i < N_SAMPLES; i++) {
+  for (char file_name = 'a'; file_name <= 'z'; file_name++) {
+    for (int i = 0; i < N_TRAINING_SAMPLES; i++) {
       char training_file[100];
       sprintf(training_file, "%s/%c/%c%d.txt", training_folder, file_name, file_name, i+1);
       float training_data[N_ROWS][N_COLS];
@@ -74,11 +77,16 @@ void knnExe(char *testing_file_path, char *training_folder) {
       
       training_info.name = file_name;
       training_info.distance = calcDistance(testing_data, training_data);
-      printf("char: %c, distance: %f\n", training_info.name, training_info.distance);
+      // printf("char: %c, distance: %f\n", training_info.name, training_info.distance);
       sortDistance(predicts, training_info);
     }
   }
-  predict(predicts);
+  result = predict(predicts);
+  if (result == testing_file_path[8]) {
+    (*count_correct)++;
+  }
+  (*count_total)++;
+  // printf("result: %c\n", result);
 }
 
 void sortDistance(struct data_info predicts[K], struct data_info training_info) {
@@ -104,9 +112,8 @@ void sortDistance(struct data_info predicts[K], struct data_info training_info) 
   }
 }
 
-void predict(struct data_info predicts[]) {
+char predict(struct data_info predicts[]) {
   int counts[K];
-  char result;
   int check[K];
 
   for (int i = 0; i < K; i++) {
@@ -129,10 +136,11 @@ void predict(struct data_info predicts[]) {
 
   for (int i = 0; i < K; i++) {
     if (counts[i] != 0) {
-      printf("Chance of %c: %.2f %%\n", predicts[i].name, (float)counts[i]/K * 100);
+      // printf("Chance of %c: %.2f %%\n", predicts[i].name, (float)counts[i]/K * 100);
     }
   }
-  printf("==>> Prediction: %c\n", predicts[final_result].name);
+  // printf("==>> Prediction: %c\n", predicts[final_result].name);
+  return predicts[final_result].name;
 }
 
 void normalize(float data[N_ROWS][N_COLS]) {
@@ -175,19 +183,6 @@ float getMin(float vector[]) {
   for (int i = 1; i < N_ROWS; i++) {
     if (result > vector[i]) {
       result = vector[i];
-    }
-  }
-
-  return result;
-}
-
-float getMinDistance(struct data_info predicts[]) {
-  float result = predicts[0].distance;
-  int len = sizeof(predicts) / sizeof(struct data_info);
-
-  for (int i = 1; i < len; i++) {
-    if (result > predicts[i].distance) {
-      result = predicts[i].distance;
     }
   }
 
