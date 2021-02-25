@@ -1,4 +1,4 @@
-#include "../include/tools.h"
+#include "../include/knn.h"
 
 void getData(char* file_path, float my_data[N_ROWS][N_COLS]) {
   FILE *fptr = fopen(file_path, "r");
@@ -20,7 +20,7 @@ void getData(char* file_path, float my_data[N_ROWS][N_COLS]) {
       memset(str_var, 0, 6);
       count_col++;
     } else if (c == '\n') {
-      if (count_col == 8) count_col--;
+      if (count_col == N_COLS) count_col--;
       data[count_row][count_col] = atof(str_var);
       memset(str_var, 0, 6);
       count_row++;

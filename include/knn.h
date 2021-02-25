@@ -1,5 +1,5 @@
-#ifndef TOOLS_H
-#define TOOLS_H
+#ifndef KNN_H
+#define KNN_H
 
 #include <stdio.h>
 #include <string.h>
