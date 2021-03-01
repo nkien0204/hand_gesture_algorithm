@@ -9,8 +9,8 @@
 #define N_ROWS 25
 #define N_COLS 8
 #define K 5
-#define N_TRAINING_SAMPLES 8
-#define N_TESTING_SAMPLES 2
+#define N_TRAINING_SAMPLES 12
+#define N_TESTING_SAMPLES 3
 
 struct data_info {
   char name;

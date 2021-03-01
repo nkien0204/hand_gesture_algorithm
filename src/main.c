@@ -19,12 +19,18 @@ int main()
   // printf("Total: %d, correct: %d\n", count_total, count_correct);
   // printf("Accuracy: %.2f %%\n", (float)count_correct / count_total * 100);
 
+
+  // knnExe(&count_total, &count_correct, "testing/k/k3.txt", training_folder);
+  // printf("Total: %d, correct: %d\n", count_total, count_correct);
+  // printf("Accuracy: %.2f %%\n", (float)count_correct / count_total * 100);
+
+
   int data[N_ROWS2][N_COLS2];
   int fingers[N_COLS2][N_ROWS2];
   int level[N_COLS2][N_ROWS2];
   int total_signal[N_ROWS2];
   initMatrix2(data);
-  getData2("abcd1.txt", data);
+  getData2("abcd2.txt", data);
   
   for (int i = 0; i < N_COLS2; i++) {
     getFinger(data, i, fingers[i]);
@@ -37,9 +43,9 @@ int main()
 
   buildSignal(level, total_signal);
   normalizeLevel(total_signal);
-  // printf("\n");
-  // showArray(total_signal);
-
+  printf("\n");
+  showArray(total_signal);
   cutting(data, total_signal);
+  
 	return (0);
 }

@@ -101,8 +101,8 @@ void write2file(int data[N_ROWS2][N_COLS2], int count, int begin, int end) {
   for (int i = begin; i < end+1; i++) {
     char str[6] = {'\0'};
     char ch;
-    for (int j = 0; j < N_COLS2; j++) {
-      if (j == N_COLS2-1) {
+    for (int j = 0; j < N_COLS; j++) {
+      if (j == N_COLS-1) {
         ch = '\n';
       } else {
         ch = ',';
@@ -192,21 +192,22 @@ void eliminateNoise(int level[]) {
   int pos_edge;
   int neg_edge;
   for (int i = 1; i < count_row2-1; i++) {
-    if (level[i-1] == 1 && level[i] == 2 && level[i+1] == 1) {
+    if ((level[i-1] == 1) && (level[i] == 2) && (level[i+1] == 1)) {
       level[i] = 1;
-    } else if (level[i] == 2 && level[i+1] == 3) {
+    } else if ((level[i] == 2) && (level[i+1] == 3)) {
       pos_edge = i;
     } else if (level[i] == 3) {
       count++;
     }
 
-    if (level[i] == 3 && level[i+1] == 2) {
-      neg_edge = i;
+    if ((level[i] == 3) && (level[i+1] == 2)) {
+      neg_edge = i+1;
       if (count < 5) {
-        for (int i = pos_edge; i < pos_edge + count; i++) {
-          level[i] = 1;
+        for (int j = pos_edge+1; j < pos_edge+count+1; j++) {
+          level[j] = 1;
         }
       }
+      count = 0;
     }
   }
 }

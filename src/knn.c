@@ -134,11 +134,11 @@ char predict(struct data_info predicts[]) {
 
   int final_result = getIndex(counts);
 
-  for (int i = 0; i < K; i++) {
-    if (counts[i] != 0) {
-      // printf("Chance of %c: %.2f %%\n", predicts[i].name, (float)counts[i]/K * 100);
-    }
-  }
+  // for (int i = 0; i < K; i++) {
+  //   if (counts[i] != 0) {
+  //     printf("Chance of %c: %.2f %%\n", predicts[i].name, (float)counts[i]/K * 100);
+  //   }
+  // }
   // printf("==>> Prediction: %c\n", predicts[final_result].name);
   return predicts[final_result].name;
 }
