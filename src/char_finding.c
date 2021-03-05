@@ -202,7 +202,7 @@ void eliminateNoise(int level[]) {
 
     if ((level[i] == 3) && (level[i+1] == 2)) {
       neg_edge = i+1;
-      if (count < 5) {
+      if (count < 4) {
         for (int j = pos_edge+1; j < pos_edge+count+1; j++) {
           level[j] = 1;
         }
